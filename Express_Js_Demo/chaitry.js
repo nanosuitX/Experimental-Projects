@@ -1,3 +1,5 @@
+import { Promise } from './C:/Users/Dell/AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bluebird';
+
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
@@ -63,17 +65,37 @@ route.get('/hadchai/:name-:password-:quantity', function(req,res){
             name: req.params.name,
             password: req.params.password
         }
-    }).then((user)=>{
-        whoHadChai.create({
-            name: user.get('name'),
-            weekDay: new Date().getDay(),
-            month: new Date().getMonth(),
-            quantity: parseInt(req.params.quantity)
-        }).then(()=>{
-            res.send(`Thank you having chai ${user.get('name')}`)
+    }).then((user)={
+        
+    })
+    // }).then((user)=>{
+    //     whoHadChai.create({
+    //         name: user.get('name'),
+    //         weekDay: new Date().getDay(),
+    //         month: new Date().getMonth(),
+    //         quantity: parseInt(req.params.quantity)
+    //     }).then(()=>{
+    //         res.send(`Thank you having chai ${user.get('name')}`)
+    //     })
+    // })
+})
+
+var getTodaysCountForUser=function(name,weekDay){
+    return new Promise(function(resolve,reject){
+        whoHadChai.findAll({
+            
         })
     })
-})
+    whoHadChai.findAll({
+        attributes:[[sequelize.fn('COUNT',sequelize.col('name'))]],
+        where: {
+            name: name,
+            weekDay:weekDay
+        }
+    }).then((count)=>{
+        return count;
+    })
+}
 
 route.get('/showCountByWeek', function(req,res){
     whoHadChai.find({
