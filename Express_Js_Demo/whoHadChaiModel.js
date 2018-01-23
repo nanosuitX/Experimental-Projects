@@ -1,11 +1,14 @@
 const Sequelize = require('sequelize');
 
-module.exports = (sequelize,DataTypes)=>{
+module.exports = (sequelize)=>{
     return sequelize.define('whohadChai',{
-        name: Sequelize.STRING,
-        weekDay: Sequelize.INTEGER,
-        month: Sequelize.INTEGER,
-        quantity : Sequelize.INTEGER
+        name: {
+            type: Sequelize.STRING,
+            primaryKey: true
+        },
+        quantity : Sequelize.INTEGER,
+        today: Sequelize.INTEGER
+
     })
     
 }

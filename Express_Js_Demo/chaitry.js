@@ -1,4 +1,4 @@
-import { Promise } from './C:/Users/Dell/AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bluebird';
+//import { Promise } from './C:/Users/Dell/AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bluebird';
 
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
@@ -8,8 +8,6 @@ const sequelize = new Sequelize('database', '', '', {
   // sqlite! now!
   dialect: 'sqlite',
 
-  // the storage engine for sqlite
-  // - default ':memory:'
   storage: 'D:/Experimental Projects/Express_Js_Demo/database.sqlite'
 })
 
@@ -21,7 +19,7 @@ const sequelize = new Sequelize('database', '', '', {
 const chaiUser = sequelize.import('./chaiUserModel.js')
 
 //const whoHadChai = sequelize.import('./chaiUserModel.js')
-const whoHadChai = require('./whoHadChaiModel')(sequelize)
+const whoHadChai = sequelize.import('./whoHadChaiModel')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -55,6 +53,7 @@ route.get('/user/:name-:password',function(req,res){
             password: req.params.password
         }
     }).then((user)=>{
+        res.json(`Hello ${user.get('name')}`);
         res.send(`Hello ${user.get('name')}`);
     })
 })
@@ -112,16 +111,10 @@ route.get('/showCountByWeek', function(req,res){
 route.get('/showAll',function(req,res){
     chaiUser.findAll()
     .then((user)=>{
-        res.send(user);
+        res.json    (user);
     })
 })
 
-route.get('/showAllWhoHadChai',function(req,res){
-    whoHadChai.findAll()
-    .then((user)=>{
-        res.send(user);
-    })
-})
 
 
 
@@ -129,12 +122,5 @@ route.get('/showAllWhoHadChai',function(req,res){
 
 
 app.use('/api', route);
-// app.use('/insert', router);
-// app.use('/show',router);
-/*app.use('/two',router);
-app.use('three',router);*/
-
-// START THE SERVER
-// =============================================================================
 app.listen(port);
 console.log('Magic happens on port ' + port)

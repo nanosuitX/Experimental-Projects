@@ -9,37 +9,32 @@
 
 <ion-content no-margin>
 
-<ion-card margin>
+<ion-card margin no-padding>
 
-  <ion-card-header style="background-color: grey">
+  <ion-card-header style="background-color: grey" >
     <ion-row no-padding no-margin>
-      <ion-col col-3 text-center>Name</ion-col>
+      <ion-col col-3 text-start>Name</ion-col>
       <ion-col col-2 text-center>Chai</ion-col>
-      <ion-col col-3 text-center>Amount</ion-col>
-      <ion-col col-3 text-center>Today</ion-col>
+      <ion-col col-2 text-center>Amount</ion-col>
+      <ion-col col-2 text-center>Today</ion-col>
     </ion-row>
   </ion-card-header>
 
-  <ion-card-content>
-    <ion-item>
+  <ion-card-content no-padding no-margin>
+    <ion-item *ngFor="let item of displayList">
       <ion-row no-padding no-margin>
-        <ion-col col-3 text-left no-padding>Melvin</ion-col>
-        <ion-col col-2 text-center no-padding>6</ion-col>
-        <ion-col col-3 text-center no-padding>36</ion-col>
-        <ion-col col-3 text-center no-padding>2</ion-col>
-        <button ></button>
-      </ion-row>
-    </ion-item>
-    <ion-item>
-      <ion-row no-padding no-margin>
-        <ion-col col-3 text-left no-padding>Mebi</ion-col>
-        <ion-col col-3 text-center no-padding>6</ion-col>
-        <ion-col col-3 text-center no-padding>36</ion-col>
-        <ion-col col-3 text-center no-padding>2</ion-col>
-
+        <ion-col col-3 text-start no-padding>{{item.name}}</ion-col>
+        <ion-col col-2 text-center no-padding><!-- {{item.count}} --></ion-col>
+        <ion-col col-2 text-center no-padding><!-- {{(item.count)*6}} --></ion-col>
+        <ion-col col-2 text-center no-padding>2</ion-col>
+        <ion-col col-3 no-padding text-right>
+          
+            <button ion-button small icon-only color="secondary" no-margin (click)="pay(item.id)"><ion-icon name="cash"></ion-icon></button>
+          <button ion-button small icon-only color="danger" no-margin (click)="edit(item.id)"><ion-icon name="create"></ion-icon></button>
+        
+        </ion-col>
       </ion-row>
     </ion-item>
   </ion-card-content>
-
 </ion-card>
 </ion-content>
